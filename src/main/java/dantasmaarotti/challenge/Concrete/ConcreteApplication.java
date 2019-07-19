@@ -18,7 +18,7 @@ public class ConcreteApplication {
 
 	@RequestMapping("/")
 	public String hello(){
-		return "it worked";
+		return "login";
 	}
 
 }

@@ -1,4 +1,8 @@
 package dantasmaarotti.challenge.Concrete.Controller;
 
-public class UserController {
+import dantasmaarotti.challenge.Concrete.Model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserController extends JpaRepository<User, Long> {
+    User findByName(String name);
 }
