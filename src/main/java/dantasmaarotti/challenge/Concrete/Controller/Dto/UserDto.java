@@ -4,6 +4,7 @@ import dantasmaarotti.challenge.Concrete.Model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class UserDto {
@@ -19,12 +20,11 @@ public class UserDto {
         this.name = user.getName();
         this.email = user.getEmail();
         this.pwd = user.getPwd();
+        this.phones = user.getPhones();
         this.created = user.getCreated();
     }
 
-    public Long getId() {
-        return id;
-    }
+
 
     public String getName() {
         return name;
@@ -48,5 +48,9 @@ public class UserDto {
 
     public static List<UserDto> convert(List<User> users){
         return users.stream().map(UserDto::new).collect(Collectors.toList());
+    }
+
+    public Long getId() {
+        return id;
     }
 }

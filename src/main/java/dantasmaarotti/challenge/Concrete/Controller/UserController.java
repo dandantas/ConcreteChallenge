@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -35,12 +36,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> registration(@RequestBody UserForm form, BindingResult bindingResult, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<UserDto> registration(@RequestBody @Valid UserForm form, BindingResult bindingResult, UriComponentsBuilder uriBuilder){
         //userService.save(userForm);
         User user = form.convert();
         //user.setPwd(bCryptPasswordEncoder.encode(user.getPwd()));
         userRepository.save(user);
-        //return "registration works";
         URI uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(new UserDto(user));
 

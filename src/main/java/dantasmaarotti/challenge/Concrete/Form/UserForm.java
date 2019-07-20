@@ -1,12 +1,23 @@
 package dantasmaarotti.challenge.Concrete.Form;
 
 import dantasmaarotti.challenge.Concrete.Model.User;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class UserForm {
 
+    @NotEmpty @NotNull @Length(min = 3)
     private String name;
+
+    @NotEmpty @NotNull @Length(min = 4)
     private String email;
+
+    @NotEmpty @NotNull
     private String pwd;
+
+    @NotEmpty @NotNull
     private String phone;
 
 

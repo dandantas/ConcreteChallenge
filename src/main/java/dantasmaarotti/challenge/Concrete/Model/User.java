@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "user")
 public class User {
+
     private String name;
     private String email;
     private String pwd;
