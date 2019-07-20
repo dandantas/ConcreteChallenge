@@ -1,5 +1,6 @@
 package dantasmaarotti.challenge.Concrete.Controller;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import dantasmaarotti.challenge.Concrete.Controller.Dto.UserDto;
@@ -55,6 +56,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     public ResponseEntity<UserDto> update(@PathVariable Long id, @Valid @RequestBody UpdateUserForm form){
         User user = form.update(id, userRepository);
 
