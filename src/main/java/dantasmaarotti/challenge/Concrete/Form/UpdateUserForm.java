@@ -1,14 +1,19 @@
 package dantasmaarotti.challenge.Concrete.Form;
 
 import dantasmaarotti.challenge.Concrete.Model.User;
+import dantasmaarotti.challenge.Concrete.Repository.UserRepository;
+import org.apache.tomcat.jni.Local;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
-public class UserForm {
+public class UpdateUserForm {
 
-    @NotEmpty @NotNull @Length(min = 3)
+    @NotEmpty
+    @NotNull
+    @Length(min = 3)
     private String name;
 
     @NotEmpty @NotNull @Length(min = 4)
@@ -20,10 +25,6 @@ public class UserForm {
     @NotEmpty @NotNull
     private String phone;
 
-
-    public User convert() {
-        return new User(name, email, pwd, phone);
-    }
 
     public String getName() {
         return name;
@@ -55,5 +56,17 @@ public class UserForm {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public User update(Long id, UserRepository userRepository) {
+        User user = userRepository.getOne(id);
+
+        user.setName(this.name);
+        user.setEmail(this.email);
+        user.setPwd(this.pwd);
+        user.setPhones(this.phone);
+        user.setModified(LocalDateTime.now());
+
+        return user;
     }
 }

@@ -6,8 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-//@ComponentScan({"dantasmaarotti.challenge.Concrete.Services"})
-@EnableAutoConfiguration
 public class ConcreteApplication {
 
 	public static void main(String[] args) {

@@ -4,7 +4,6 @@ import dantasmaarotti.challenge.Concrete.Model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class UserDto {
@@ -15,6 +14,8 @@ public class UserDto {
     private String phones;
     private LocalDateTime created;
 
+    private LocalDateTime modified;
+
     public UserDto(User user){
         this.id = user.getId();
         this.name = user.getName();
@@ -22,6 +23,7 @@ public class UserDto {
         this.pwd = user.getPwd();
         this.phones = user.getPhones();
         this.created = user.getCreated();
+        this.modified = user.getModified();
     }
 
 
@@ -44,6 +46,10 @@ public class UserDto {
 
     public LocalDateTime getCreated() {
         return created;
+    }
+
+    public LocalDateTime getModified() {
+        return modified;
     }
 
     public static List<UserDto> convert(List<User> users){

@@ -16,7 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime created = LocalDateTime.now();
-    //private LocalDateTime modified;
+    private LocalDateTime modified;
     //private LocalDateTime last_login;
 
     public User(){}
@@ -74,5 +74,12 @@ public class User {
 
     public void setCreated(LocalDateTime created) {
         this.created = created;
+    }
+    public LocalDateTime getModified() {
+        return modified;
+    }
+
+    public void setModified(LocalDateTime modified) {
+        this.modified = modified;
     }
 }

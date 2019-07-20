@@ -1,6 +1,9 @@
 package dantasmaarotti.challenge.Concrete.Controller;
 
+import javax.validation.Valid;
+import java.net.URI;
 import dantasmaarotti.challenge.Concrete.Controller.Dto.UserDto;
+import dantasmaarotti.challenge.Concrete.Form.UpdateUserForm;
 import dantasmaarotti.challenge.Concrete.Form.UserForm;
 import dantasmaarotti.challenge.Concrete.Model.User;
 import dantasmaarotti.challenge.Concrete.Repository.UserRepository;
@@ -14,8 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
+
 
 @RestController
 @RequestMapping("/users")
@@ -36,13 +38,27 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> registration(@RequestBody @Valid UserForm form, BindingResult bindingResult, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<UserDto> registration(@Valid @RequestBody UserForm form, BindingResult bindingResult, UriComponentsBuilder uriBuilder){
         //userService.save(userForm);
         User user = form.convert();
         //user.setPwd(bCryptPasswordEncoder.encode(user.getPwd()));
         userRepository.save(user);
         URI uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(new UserDto(user));
+
+    }
+
+    @GetMapping("/{id}")
+    public UserDto details(@PathVariable Long id){
+        User user = userRepository.getOne(id);
+        return new UserDto(user);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> update(@PathVariable Long id, @Valid @RequestBody UpdateUserForm form){
+        User user = form.update(id, userRepository);
+
+        return ResponseEntity.ok(new UserDto(user));
 
     }
 
