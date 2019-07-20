@@ -14,10 +14,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime created;
-    private LocalDateTime modified;
-    private LocalDateTime last_login;
+    private LocalDateTime created = LocalDateTime.now();
+    //private LocalDateTime modified;
+    //private LocalDateTime last_login;
 
+    public User(){}
+
+    public User(String name, String email, String pwd, String phones){
+        this.name = name;
+        this.email = email;
+        this.pwd = pwd;
+        this.phones = phones;
+    }
 
     public String getName() {
         return name;
@@ -57,5 +65,13 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 }
