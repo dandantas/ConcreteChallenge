@@ -3,6 +3,8 @@ package dantasmaarotti.challenge.Concrete.Controller;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
+
 import dantasmaarotti.challenge.Concrete.Controller.Dto.UserDto;
 import dantasmaarotti.challenge.Concrete.Form.UpdateUserForm;
 import dantasmaarotti.challenge.Concrete.Form.UserForm;
@@ -39,6 +41,7 @@ public class UserController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<UserDto> registration(@Valid @RequestBody UserForm form, BindingResult bindingResult, UriComponentsBuilder uriBuilder){
         //userService.save(userForm);
         User user = form.convert();
@@ -50,17 +53,29 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDto details(@PathVariable Long id){
-        User user = userRepository.getOne(id);
-        return new UserDto(user);
+    public ResponseEntity<UserDto> details(@PathVariable Long id){
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent())
+            return ResponseEntity.ok(new UserDto(user.get()));
+        return ResponseEntity.notFound().build();
+
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<UserDto> update(@PathVariable Long id, @Valid @RequestBody UpdateUserForm form){
-        User user = form.update(id, userRepository);
 
-        return ResponseEntity.ok(new UserDto(user));
+        Optional<User> optional = userRepository.findById(id);
+        if (optional.isPresent()) {
+            User user = form.update(id, userRepository);
+            return ResponseEntity.ok(new UserDto(user));
+        }
+            return ResponseEntity.notFound().build();
+
+
+
+
+
 
     }
 
