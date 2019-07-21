@@ -64,7 +64,7 @@ public class UpdateUserForm {
         user.setName(this.name);
         user.setEmail(this.email);
         user.setPwd(this.pwd);
-        user.setPhones(this.phone);
+        user.setPhone(this.phone);
         user.setModified(LocalDateTime.now());
 
         return user;

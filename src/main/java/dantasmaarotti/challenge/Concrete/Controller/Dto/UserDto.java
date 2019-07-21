@@ -13,17 +13,19 @@ public class UserDto {
     private String pwd;
     private String phones;
     private LocalDateTime created;
-
     private LocalDateTime modified;
+    private LocalDateTime last_login;
+
 
     public UserDto(User user){
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
         this.pwd = user.getPwd();
-        this.phones = user.getPhones();
+        this.phones = user.getPhone();
         this.created = user.getCreated();
         this.modified = user.getModified();
+        this.last_login = user.getLast_login();
     }
 
 
@@ -51,6 +53,11 @@ public class UserDto {
     public LocalDateTime getModified() {
         return modified;
     }
+
+    public LocalDateTime getLast_login() {
+        return last_login;
+    }
+
 
     public static List<UserDto> convert(List<User> users){
         return users.stream().map(UserDto::new).collect(Collectors.toList());

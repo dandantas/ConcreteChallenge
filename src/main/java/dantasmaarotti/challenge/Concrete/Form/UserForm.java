@@ -1,10 +1,12 @@
 package dantasmaarotti.challenge.Concrete.Form;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.key.LocalDateKeyDeserializer;
 import dantasmaarotti.challenge.Concrete.Model.User;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 public class UserForm {
 
@@ -19,7 +21,6 @@ public class UserForm {
 
     @NotEmpty @NotNull
     private String phone;
-
 
     public User convert() {
         return new User(name, email, pwd, phone);
@@ -56,4 +57,5 @@ public class UserForm {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
 }

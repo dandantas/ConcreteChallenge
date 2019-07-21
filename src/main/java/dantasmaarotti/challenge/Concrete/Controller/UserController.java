@@ -3,6 +3,7 @@ package dantasmaarotti.challenge.Concrete.Controller;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import dantasmaarotti.challenge.Concrete.Controller.Dto.UserDto;
@@ -42,9 +43,9 @@ public class UserController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<UserDto> registration(@Valid @RequestBody UserForm form, BindingResult bindingResult, UriComponentsBuilder uriBuilder){
-        //userService.save(userForm);
+    public ResponseEntity<UserDto> registration(@Valid @RequestBody UserForm form, UriComponentsBuilder uriBuilder){
         User user = form.convert();
+        user.setLast_login(user.getCreated());
         //user.setPwd(bCryptPasswordEncoder.encode(user.getPwd()));
         userRepository.save(user);
         URI uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();

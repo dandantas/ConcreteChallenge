@@ -10,22 +10,22 @@ public class User {
     private String name;
     private String email;
     private String pwd;
-    private String phones;
+    private String phone;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime created = LocalDateTime.now();
     private LocalDateTime modified;
-    //private LocalDateTime last_login;
+    private LocalDateTime last_login;
 
     public User(){}
 
-    public User(String name, String email, String pwd, String phones){
+    public User(String name, String email, String pwd, String phone){
         this.name = name;
         this.email = email;
         this.pwd = pwd;
-        this.phones = phones;
+        this.phone = phone;
     }
 
     public String getName() {
@@ -52,12 +52,12 @@ public class User {
         this.pwd = pwd;
     }
 
-    public String getPhones() {
-        return phones;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhones(String phones) {
-        this.phones = phones;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -81,5 +81,13 @@ public class User {
 
     public void setModified(LocalDateTime modified) {
         this.modified = modified;
+    }
+
+    public LocalDateTime getLast_login() {
+        return last_login;
+    }
+
+    public void setLast_login(LocalDateTime last_login) {
+        this.last_login = last_login;
     }
 }
